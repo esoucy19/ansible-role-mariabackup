@@ -24,3 +24,8 @@ def test_mariadb_running(host):
     s = host.service('mysql')
     assert s.is_running
     assert s.is_enabled
+
+
+def test_mariabackup_installed(host):
+    p = host.package('MariaDB-backup')
+    assert p.is_installed
