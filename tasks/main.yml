@@ -1,2 +1,5 @@
 ---
-# tasks file for mariadb-backup
+- name: Install MariaDB-backup
+  yum:
+    name: MariaDB-backup
+    state: present
