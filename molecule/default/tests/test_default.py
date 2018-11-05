@@ -29,3 +29,8 @@ def test_mariadb_running(host):
 def test_mariabackup_installed(host):
     mariabackup = host.package('MariaDB-backup')
     assert mariabackup.is_installed
+
+
+def test_user_mariabackup_exists(host):
+    mariabackup = host.user('mariabackup')
+    assert mariabackup.exists
