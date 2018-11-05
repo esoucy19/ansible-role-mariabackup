@@ -32,5 +32,6 @@ def test_mariabackup_installed(host):
 
 
 def test_user_mariabackup_exists(host):
-    mariabackup = host.user('mariabackup')
-    assert mariabackup.exists
+    mariabackup_user = host.user(
+        host.ansible.get_variables()['mariabackup_user'])
+    assert mariabackup_user.exists

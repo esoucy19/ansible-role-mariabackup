@@ -19,11 +19,13 @@ platforms:
     command: "/usr/sbin/init"
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    instances:
-      - name: mariadb-backup-centos7
 
 provisioner:
   name: ansible
+  inventory:
+    host_vars:
+      centos7:
+        mariabackup_user: mariabackup
   config_options:
     ssh_connection:
       pipelining: true
