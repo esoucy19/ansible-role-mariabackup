@@ -1,7 +1,7 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Install and configure mariabackup for automated backups.
 
 Requirements
 ------------
