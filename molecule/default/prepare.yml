@@ -1,0 +1,7 @@
+---
+- hosts: all
+  roles:
+    - role: bertvv.mariadb
+      vars:
+        mariadb_service: mysql
+  become: true

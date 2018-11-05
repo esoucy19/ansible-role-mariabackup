@@ -2,8 +2,5 @@
 - name: Converge
   hosts: all
   roles:
-    - role: bertvv.mariadb
-      vars:
-        mariadb_service: mysql
     - role: ansible-role-mariadb-backup
   become: true
