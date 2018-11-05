@@ -7,10 +7,10 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 
 def test_mariadb_installed(host):
-    p = host.package('MariaDB-server')
-    assert p.is_installed
+    mariadb = host.package('MariaDB-server')
+    assert mariadb.is_installed
 
-    version = tuple(map(int, p.version.split('-')[0].split('.')))
+    version = tuple(map(int, mariadb.version.split('-')[0].split('.')))
     version_error = "MariaDB version must be at least 10.1.23 or 10.2.7"
     assert version[0] >= 10, version_error
     assert version[1] >= 1, version_error
@@ -21,11 +21,11 @@ def test_mariadb_installed(host):
 
 
 def test_mariadb_running(host):
-    s = host.service('mysql')
-    assert s.is_running
-    assert s.is_enabled
+    mariadb = host.service('mysql')
+    assert mariadb.is_running
+    assert mariadb.is_enabled
 
 
 def test_mariabackup_installed(host):
-    p = host.package('MariaDB-backup')
-    assert p.is_installed
+    mariabackup = host.package('MariaDB-backup')
+    assert mariabackup.is_installed
