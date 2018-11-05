@@ -6,8 +6,10 @@ name = "pypi"
 [packages]
 molecule = "*"
 docker = "*"
+pytest = "<3.10"
+pytest-xdist = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.7"
+python_version = "3.6.6"
