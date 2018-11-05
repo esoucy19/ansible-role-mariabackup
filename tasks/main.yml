@@ -3,3 +3,10 @@
   yum:
     name: MariaDB-backup
     state: present
+  become: true
+
+- name: Create mariabackup user
+  user:
+    name: mariabackup
+    state: present
+  become: true
