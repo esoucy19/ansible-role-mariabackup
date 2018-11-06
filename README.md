@@ -1,30 +1,43 @@
-Role Name
-=========
+Ansible Role: mariabackup
+=========================
 
-Install and configure mariabackup for automated backups.
+This role installs and configures the MariaDB backup software Mariabackup on
+RedHat-based distributions. The role's responsibilities are to:
+
+- Install Mariabackup.
+- Create a system account with proper permissions to run backups under.
+- Create a .my.cnf file with credentials in the system user's home directory.
+- Create a database account with proper permissions to run backups under.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should
-be mentioned here. For instance, if the role uses the EC2 module, it may be a
-good idea to mention in this section that the boto package is required.
+Mariabackup requires the MariaDB version to be at least 10.1.23 or 10.2.7. Any
+version 10.3 and up will also do.
+
+This role requires that MariaDB be already installed, and that mariabackup be
+available in the system's repositories.
+
+See [bertvv.mariadb](https://galaxy.ansible.com/bertvv/mariadb) for a role to
+setup the repositories and install MariaDB.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including
-any variables that are in defaults/main.yml, vars/main.yml, and any variables
-that can/should be set via parameters to the role. Any variables that are read
-from other roles and/or the global scope (ie. hostvars, group vars, etc.) should
-be mentioned here as well.
+Here are the variables used with their default values
+
+```yaml
+- mariabackup_user: "mariabackup" # The system user that backups will run under.
+- mariabackup_mysql_user: "mariabackup" # The database user that backups will use.
+- mariabackup_mysql_password: "" # The password for the database user.
+- mariadb_root_password: "" # The root password the role will use to create the
+database user.
+```
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in
-regards to parameters that may need to be set for other roles, or variables that
-are used from other roles.
+None.
 
 Example Playbook
 ----------------
@@ -32,17 +45,18 @@ Example Playbook
 Including an example of how to use your role (for instance, with variables
 passed in as parameters) is always nice for users too:
 
-    - hosts: servers
-      roles:
-         - { role: mariadb-backup, x: 42 }
+```yaml
+- hosts: server
+  roles:
+      - role: esoucy19.mariabackup
+```
 
 License
 -------
 
-BSD
+MIT / BSD
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a
-website (HTML is not allowed).
+This role was created in 2018 by [Etienne Soucy](https://gitlab.com/esoucy19).
