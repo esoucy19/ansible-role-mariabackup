@@ -8,7 +8,18 @@
 - name: Create mariabackup user
   user:
     name: "{{ mariabackup_user }}"
+    group: mysql
     state: present
+  become: true
+
+- name: Adjust permissions on mysql data folder
+  file:
+    path: /var/lib/mysql
+    state: directory
+    owner: mysql
+    group: mysql
+    mode: 0775
+    recurse: true
   become: true
 
 - name: Create mariabackup my.cnf file
