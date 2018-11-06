@@ -53,6 +53,21 @@ def test_user_mariabackup_mycnf(host, vars):
                                    vars['mariabackup_mysql_password']]))
 
 
+def test_mariabackup_mysql_user_permissions(host, vars):
+    permissions = host.ansible('shell',
+                               ''.join(['sudo -u mariabackup mysql -u ',
+                                        vars['mariabackup_mysql_user'],
+                                        ' ',
+                                        '-N -B -e "show grants for \'',
+                                        vars['mariabackup_mysql_user'],
+                                        '\'@\'localhost\';"']),
+                               check=False,
+                               become=True)
+    assert ('GRANT LOCK TABLES, RELOAD, REPLICATION CLIENT ON *.*'
+            in permissions['stdout'])
+
+
+
 def test_user_mariabackup_can_backup(host, vars):
     backup = host.ansible('shell',
                           ''.join(['sudo -u ',
