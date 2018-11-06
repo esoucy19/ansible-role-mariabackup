@@ -26,6 +26,8 @@ provisioner:
     host_vars:
       centos7:
         mariabackup_user: mariabackup
+        mariabackup_mysql_user: root
+        mariabackup_mysql_password: ""
   config_options:
     ssh_connection:
       pipelining: true

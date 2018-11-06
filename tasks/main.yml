@@ -10,3 +10,12 @@
     name: "{{ mariabackup_user }}"
     state: present
   become: true
+
+- name: Create mariabackup my.cnf file
+  template:
+    src: my.cnf.j2
+    dest: /home/{{ mariabackup_user }}/.my.cnf
+    owner: "{{ mariabackup_user }}"
+    group: "{{ mariabackup_user }}"
+    mode: 0600
+  become: true

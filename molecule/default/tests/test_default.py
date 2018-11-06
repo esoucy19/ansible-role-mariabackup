@@ -42,11 +42,11 @@ def test_user_mariabackup_exists(host, vars):
 
 
 def test_user_mariabackup_mycnf(host, vars):
-    mycnf = host.file(''.join(['/home/', vars['mariabackup_user'], '.my.cnf']))
+    mycnf = host.file(''.join(['/home/', vars['mariabackup_user'], '/.my.cnf']))
     assert mycnf.exists
     assert mycnf.user == vars['mariabackup_user']
     assert mycnf.group == vars['mariabackup_user']
-    assert oct(mycnf.mode) == '0600'
+    assert oct(mycnf.mode) == '0o600'
     assert mycnf.contains(''.join(['user=', vars['mariabackup_mysql_user']]))
     assert mycnf.contains(''.join(['password=',
                                    vars['mariabackup_mysql_password']]))
