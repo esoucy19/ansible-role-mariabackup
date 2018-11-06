@@ -30,8 +30,7 @@ Here are the variables used with their default values
 - mariabackup_user: "mariabackup" # The system user that backups will run under.
 - mariabackup_mysql_user: "mariabackup" # The database user that backups will use.
 - mariabackup_mysql_password: "" # The password for the database user.
-- mariadb_root_password: "" # The root password the role will use to create the
-database user.
+- mariadb_root_password: "" # The root password the role will use to create the database user.
 ```
 
 Dependencies
