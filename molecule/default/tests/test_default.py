@@ -63,9 +63,8 @@ def test_mariabackup_mysql_user_permissions(host, vars):
                                         '\'@\'localhost\';"']),
                                check=False,
                                become=True)
-    assert ('GRANT LOCK TABLES, RELOAD, REPLICATION CLIENT ON *.*'
+    assert ('GRANT RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.*'
             in permissions['stdout'])
-
 
 
 def test_user_mariabackup_can_backup(host, vars):

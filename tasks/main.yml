@@ -1,18 +1,19 @@
 ---
-- name: Install MariaDB-backup
+- name: Install MariaDB-backup.
   yum:
     name: MariaDB-backup
     state: present
   become: true
 
-- name: Create mariabackup user
+- name: Create mariabackup user.
   user:
     name: "{{ mariabackup_user }}"
-    group: mysql
+    groups:
+      - mysql
     state: present
   become: true
 
-- name: Adjust permissions on mysql data folder
+- name: Adjust permissions on mysql data folder.
   file:
     path: /var/lib/mysql
     state: directory
@@ -22,7 +23,7 @@
     recurse: true
   become: true
 
-- name: Create mariabackup my.cnf file
+- name: Create mariabackup my.cnf file.
   template:
     src: my.cnf.j2
     dest: /home/{{ mariabackup_user }}/.my.cnf
@@ -30,3 +31,14 @@
     group: "{{ mariabackup_user }}"
     mode: 0600
   become: true
+
+- name: Create mysql user.
+  mysql_user:
+    name: "{{ mariabackup_mysql_user }}"
+    password: "{{ mariabackup_mysql_password }}"
+    encrypted: true
+    host: localhost
+    priv: '*.*:reload,lock tables,replication client'
+    state: present
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
