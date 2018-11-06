@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: mariabackup
   author: Etienne Soucy
   description: Role to install and configure Mariabackup
   company: ""
