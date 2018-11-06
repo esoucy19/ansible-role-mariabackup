@@ -42,7 +42,8 @@ def test_user_mariabackup_exists(host, vars):
 
 
 def test_user_mariabackup_mycnf(host, vars):
-    mycnf = host.file(''.join(['/home/', vars['mariabackup_user'], '/.my.cnf']))
+    mycnf = host.file(''.join(['/home/',
+                               vars['mariabackup_user'], '/.my.cnf']))
     assert mycnf.exists
     assert mycnf.user == vars['mariabackup_user']
     assert mycnf.group == vars['mariabackup_user']
@@ -50,3 +51,21 @@ def test_user_mariabackup_mycnf(host, vars):
     assert mycnf.contains(''.join(['user=', vars['mariabackup_mysql_user']]))
     assert mycnf.contains(''.join(['password=',
                                    vars['mariabackup_mysql_password']]))
+
+
+def test_user_mariabackup_can_backup(host, vars):
+    backup = host.ansible('shell',
+                          ''.join(['sudo -u ',
+                                   vars['mariabackup_user'],
+                                   ' ',
+                                   'mariabackup --backup --stream=xbstream ',
+                                   '| gzip > /home/',
+                                   vars['mariabackup_user'],
+                                   '/backup.gz']),
+                          check=False,
+                          become=True)
+    assert 'completed OK!' in backup['stderr']
+    backup_file = host.file(''.join(['/home/',
+                                     vars['mariabackup_user'],
+                                     '/backup.gz']))
+    assert backup_file.exists
