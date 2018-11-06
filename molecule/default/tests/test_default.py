@@ -1,9 +1,14 @@
 import os
-
+import pytest
 import testinfra.utils.ansible_runner
 
 testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
     os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('all')
+
+
+@pytest.fixture()
+def vars(host):
+    return host.ansible.get_variables()
 
 
 def test_mariadb_installed(host):
@@ -31,7 +36,6 @@ def test_mariabackup_installed(host):
     assert mariabackup.is_installed
 
 
-def test_user_mariabackup_exists(host):
-    mariabackup_user = host.user(
-        host.ansible.get_variables()['mariabackup_user'])
+def test_user_mariabackup_exists(host, vars):
+    mariabackup_user = host.user(vars['mariabackup_user'])
     assert mariabackup_user.exists
