@@ -1,3 +1,6 @@
+
+[![Build Status](https://travis-ci.org/esoucy19/ansible-role-mariabackup.svg?branch=master)](https://travis-ci.org/esoucy19/ansible-role-mariabackup)
+
 Ansible Role: mariabackup
 =========================
 
