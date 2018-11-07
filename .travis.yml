@@ -5,7 +5,8 @@ python:
 services: docker
 
 install:
-  - pip install molecule docker
+  - pip install pipenv
+  - pipenv install
 
 script:
   - molecule test
