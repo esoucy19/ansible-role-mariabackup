@@ -3,7 +3,7 @@ galaxy_info:
   role_name: mariabackup
   author: Etienne Soucy
   description: Role to install and configure Mariabackup
-  company: ""
+  company: None
   license: MIT
   min_ansible_version: 2.4
   platforms:
